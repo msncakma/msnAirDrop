@@ -8,8 +8,8 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class AirDropEvent {
     private final MsnAirDrop plugin;
@@ -19,8 +19,8 @@ public class AirDropEvent {
     private boolean isActive;
     private boolean isAccessible;
     private boolean isTestMode;
-    private BukkitTask countdownTask;
-    private BukkitTask accessTask;
+    private AtomicReference<ScheduledFuture<?>> countdownTask;
+    private AtomicReference<ScheduledFuture<?>> accessTask;
     private Material dropBlock;
 
     public AirDropEvent(MsnAirDrop plugin, Location pos1, Location pos2, boolean isTestMode) {
@@ -97,7 +97,8 @@ public class AirDropEvent {
             accessTask.cancel();
         }
         if (dropLocation != null && dropLocation.getBlock().getType() == dropBlock) {
-            dropLocation.getBlock().setType(Material.AIR);
+                            plugin.getTaskScheduler().runRegionTask(dropLocation, () -> 
+                    dropLocation.getBlock().setType(Material.AIR));
         }
         isActive = false;
         isAccessible = false;

@@ -2,6 +2,7 @@ name: MsnAirDrop
 version: 1.0.0
 main: com.msncakma.msnairdrop.MsnAirDrop
 api-version: 1.13
+folia-supported: true
 author: msncakma
 description: An advanced AirDrop event system for Minecraft servers
 website: https://github.com/msncakma

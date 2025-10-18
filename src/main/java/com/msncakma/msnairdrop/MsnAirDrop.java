@@ -8,6 +8,7 @@ import com.msncakma.msnairdrop.utils.UpdateChecker;
 import com.msncakma.msnairdrop.utils.DebugManager;
 import com.msncakma.msnairdrop.rewards.RewardManager;
 import com.msncakma.msnairdrop.utils.MessageManager;
+import com.msncakma.msnairdrop.scheduler.TaskScheduler;
 import com.msncakma.msnairdrop.commands.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -21,10 +22,14 @@ public class MsnAirDrop extends JavaPlugin {
     private DebugManager debugManager;
     private RewardManager rewardManager;
     private MessageManager messageManager;
+    private TaskScheduler taskScheduler;
 
     @Override
     public void onEnable() {
         instance = this;
+        
+        // Initialize task scheduler
+        this.taskScheduler = new TaskScheduler(this);
         
         // Load configurations
         saveDefaultConfig();
@@ -102,6 +107,10 @@ public class MsnAirDrop extends JavaPlugin {
 
     public static MsnAirDrop getInstance() {
         return instance;
+    }
+
+    public TaskScheduler getTaskScheduler() {
+        return taskScheduler;
     }
 
     public LanguageManager getLanguageManager() {

@@ -53,7 +53,7 @@ public class AirDropStatsCommand implements CommandExecutor, TabCompleter {
     }
 
     private void showStats(CommandSender sender, String playerName) {
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+        plugin.getTaskScheduler().runTaskAsync(() -> {
             // Try to get UUID from player name
             UUID targetUuid = null;
             Player targetPlayer = Bukkit.getPlayer(playerName);
