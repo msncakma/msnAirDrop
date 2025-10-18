@@ -1,0 +1,35 @@
+# Turkish language file for MsnAirDrop
+
+prefix: "<dark_gray>[<gradient:aqua:blue>MsnAirDrop</gradient><dark_gray>]</dark_gray>"
+
+commands:
+  no-permission: "<red>Bu komutu kullanmak için yetkiniz yok!</red>"
+  unknown-command: "<red>Bilinmeyen komut. Yardım için <yellow>/{command} help</yellow> yazın.</red>"
+  reload-success: "<gradient:green:lime>Plugin başarıyla yeniden yüklendi!</gradient>"
+  reload-failed: "<red>Yeniden yükleme başarısız oldu!</red>"
+  
+  version:
+    info: "&7Plugin versiyonu: &b{version}"
+    author: "&7Yapımcı: &b{author}"
+    github: "&7GitHub: &b{github}"
+
+event:
+  start: "&b{area} &7bölgesinde yeni bir AirDrop etkinliği başladı!"
+  countdown: "&7Etkinliğin başlamasına &b{time} &7kaldı!"
+  started: "&aEtkinlik başladı! AirDrop {coordinates} koordinatlarında!"
+  access-countdown: "&7Sandığın açılmasına &b{time} &7kaldı!"
+  access-granted: "&aSandık artık açılabilir!"
+  winner: "&b{player} &7etkinliği kazandı!"
+  
+admin:
+  pos1-set: "&7Birinci pozisyon ayarlandı: &b{pos}"
+  pos2-set: "&7İkinci pozisyon ayarlandı: &b{pos}"
+  area-set: "&aEtkinlik alanı başarıyla ayarlandı!"
+  drop-location: "&7AirDrop'un konumu: &b{location}"
+  test-mode: "&7Test modu &b{state}"
+  
+errors:
+  invalid-coordinates: "&cGeçersiz koordinatlar!"
+  no-area-set: "&cEtkinlik alanı ayarlanmamış!"
+  event-in-progress: "&cZaten devam eden bir etkinlik var!"
+  no-event-active: "&cAktif bir etkinlik yok!"

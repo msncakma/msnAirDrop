@@ -1,0 +1,34 @@
+# MsnAirDrop Configuration
+
+# Plugin settings
+settings:
+  check-updates: true
+  debug-mode: false
+
+# Messages configuration
+messages:
+  prefix: "&8[&bMsnAirDrop&8]"
+  language: "tr-TR"
+
+# Event settings
+event:
+  announce-delay: 300 # 5 minutes
+  access-delay: 1800 # 30 minutes
+  block-type: CHEST
+  protected: true
+
+# Coordinates settings
+coordinates:
+  default-radius: 500
+  min-y: 64
+  max-y: 120
+
+# Database settings
+database:
+  type: SQLite # SQLite or MySQL
+  mysql:
+    host: "localhost"
+    port: 3306
+    database: "msnairdrop"
+    username: "root"
+    password: "password"

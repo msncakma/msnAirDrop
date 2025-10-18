@@ -1,0 +1,39 @@
+# Legendary drop configuration
+chance: 15.0
+
+items:
+  netherite_sword:
+    material: NETHERITE_SWORD
+    amount: 1
+    name: "&5Legendary Netherite Sword"
+    enchantments:
+      DAMAGE_ALL: 5
+      DURABILITY: 3
+      FIRE_ASPECT: 2
+      SWEEPING_EDGE: 3
+    lore:
+      - "&7A legendary sword from an AirDrop"
+      - "&7Sharpness V, Unbreaking III"
+      - "&7Fire Aspect II, Sweeping Edge III"
+    flags:
+      - HIDE_ENCHANTS
+
+  netherite_armor:
+    material: NETHERITE_CHESTPLATE
+    amount: 1
+    enchantments:
+      PROTECTION_ENVIRONMENTAL: 4
+      DURABILITY: 3
+      THORNS: 2
+
+  special_items:
+    material: TOTEM_OF_UNDYING
+    amount: 1
+
+  resources:
+    material: NETHERITE_INGOT
+    amount: 2
+
+commands:
+  - "xp add %player% 1000"
+  - "give %player% diamond 64"

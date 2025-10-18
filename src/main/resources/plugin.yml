@@ -1,0 +1,62 @@
+name: MsnAirDrop
+version: 1.0.0
+main: com.msncakma.msnairdrop.MsnAirDrop
+api-version: 1.13
+author: msncakma
+description: An advanced AirDrop event system for Minecraft servers
+website: https://github.com/msncakma
+depend: [PlaceholderAPI]
+
+commands:
+  msnairdrop:
+    description: Main command for MsnAirDrop plugin
+    aliases: [airdrop, mad]
+    permission: msnairdrop.use
+    usage: "/msnairdrop <version|help|reload>"
+  msnairdrop:pos1:
+    description: Set first position for AirDrop area
+    permission: msnairdrop.admin
+    usage: "/msnairdrop:pos1"
+  msnairdrop:pos2:
+    description: Set second position for AirDrop area
+    permission: msnairdrop.admin
+    usage: "/msnairdrop:pos2"
+  airdropstats:
+    description: View AirDrop statistics for a player
+    usage: "/airdropstats [player]"
+    aliases: [adstats, dropstats]
+    permission: msnairdrop.stats
+
+permissions:
+  msnairdrop.stats:
+    description: Allows players to view AirDrop statistics
+    default: true
+    permission: msnairdrop.admin
+    usage: "/msnairdrop:pos2"
+  msnairdrop event:
+    description: Manage AirDrop events
+    permission: msnairdrop.admin
+    usage: "/msnairdrop event <start|stop|locate> [test]"
+  msnairdrop reload:
+    description: Reload plugin configuration and drops
+    permission: msnairdrop.admin
+    usage: "/msnairdrop reload"
+  msnairdrop debug:
+    description: Manage debug settings and test mode
+    permission: msnairdrop.admin
+    usage: "/msnairdrop debug <mode|toggle|info>"
+  msnairdrop reward:
+    description: Manage AirDrop rewards
+    permission: msnairdrop.admin
+    usage: "/msnairdrop reward <add|additem|remove|list>"
+
+permissions:
+  msnairdrop.admin:
+    description: Allows access to all MsnAirDrop admin commands
+    default: op
+  msnairdrop.use:
+    description: Allows access to basic MsnAirDrop commands
+    default: true
+  msnairdrop.version:
+    description: Allows checking plugin version
+    default: true

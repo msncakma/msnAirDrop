@@ -1,0 +1,34 @@
+# Rare drop configuration
+chance: 35.0
+
+items:
+  diamond_sword:
+    material: DIAMOND_SWORD
+    amount: 1
+    name: "&bRare Diamond Sword"
+    enchantments:
+      DAMAGE_ALL: 3
+      DURABILITY: 2
+      FIRE_ASPECT: 1
+    lore:
+      - "&7A powerful sword from an AirDrop"
+      - "&7Sharpness III, Unbreaking II"
+      - "&7Fire Aspect I"
+
+  diamond_armor:
+    material: DIAMOND_CHESTPLATE
+    amount: 1
+    enchantments:
+      PROTECTION_ENVIRONMENTAL: 2
+      DURABILITY: 2
+
+  special_food:
+    material: ENCHANTED_GOLDEN_APPLE
+    amount: 2
+
+  resources:
+    material: DIAMOND
+    amount: 8
+
+commands:
+  - "xp add %player% 500"
