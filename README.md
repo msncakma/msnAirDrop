@@ -1,7 +1,5 @@
 # 🎁 MsnAirDrop v1.0.0 - Advanced AirDrop System
 
-Hey there! 👋 Welcome to MsnAirDrop, a feature-rich and exciting AirDrop plugin for Paper/Spigot servers. # 🎁 MsnAirDrop v1.0.0 - Advanced AirDrop System
-
 Hey there! 👋 Welcome to MsnAirDrop, a feature-rich and exciting AirDrop plugin for Paper/Spigot servers. Create thrilling events where players compete for valuable rewards while tracking their statistics!
 
 ## ✨ Features
