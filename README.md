@@ -1,16 +1,20 @@
-# MsnAirDrop
+# 🎁 MsnAirDrop v1.0.0 - Advanced AirDrop System
 
-A Minecraft plugin that creates exciting AirDrop events with customizable rewards and statistics tracking.
+Hey there! 👋 Welcome to MsnAirDrop, a feature-rich and exciting AirDrop plugin for Paper/Spigot servers. # 🎁 MsnAirDrop v1.0.0 - Advanced AirDrop System
 
-## Features
+Hey there! 👋 Welcome to MsnAirDrop, a feature-rich and exciting AirDrop plugin for Paper/Spigot servers. Create thrilling events where players compete for valuable rewards while tracking their statistics!
 
-- Customizable AirDrop events with configurable locations and timers
-- Complete statistics system tracking player participation and wins
-- PlaceholderAPI integration for scoreboard support
-- MySQL/SQLite database support
-- In-game reward management
-- Multi-language support
-- MiniMessage formatting support
+## ✨ Features
+
+- 🎮 **Dynamic Events** - Create exciting AirDrop events with customizable locations and timers
+- 📊 **Statistics System** - Track player participation, wins, and detailed combat stats
+- 🏆 **Reward Management** - Customize rewards with different tiers and probabilities
+- 🗄️ **Database Choice** - Support for both SQLite and MySQL databases
+- 🔌 **PlaceholderAPI Support** - Display stats on scoreboards and in-game
+- 🌍 **Multi-language Support** - Easy language customization
+- 💬 **MiniMessage Format** - Beautiful formatted messages with RGB support
+- ⚡ **High Performance** - Async database operations and optimized code
+- 🎨 **Custom Messages** - Fully customizable messages and announcements
 
 ## Commands
 
@@ -38,18 +42,36 @@ All configuration files are located in the plugin's data folder:
 - `messages/` - Language files
 - `drops/` - Reward configurations
 
-## Dependencies
+### 🎯 Features in v1.0.0 (Initial Release)
 
-- PlaceholderAPI
-- HikariCP (included)
-- Adventure API (included)
+- ✅ **Complete Stats System** - Track kills, deaths, wins, and more
+- ✅ **Database Integration** - Reliable data storage with connection pooling
+- ✅ **Event Management** - Full control over AirDrop events
+- ✅ **Combat Statistics** - Track player performance in events
+- ✅ **PlaceholderAPI** - Display stats anywhere
+- ✅ **Multi-Database** - Choose between MySQL and SQLite
+- ✅ **Async Operations** - Smooth server performance
+- ✅ **Custom Messages** - Full message customization
 
-## Installation
+## 🚀 Installation
 
-1. Place the plugin JAR in your server's `plugins` folder
-2. Restart your server
-3. Configure the plugin in `plugins/MsnAirDrop/config.yml`
-4. Use `/msnairdrop reload` to apply changes
+1. Download the latest release from [GitHub Releases](https://github.com/msncakma/msnAirDrop/releases)
+2. Place the .jar file in your server's `plugins` folder
+3. Install required dependencies (PlaceholderAPI)
+4. Restart your server
+5. Configure the plugin in `config.yml`
+6. Use `/msnairdrop reload` to apply changes
+
+## 📦 Dependencies
+
+- **Required:**
+  - PlaceholderAPI (for stats display)
+  - Paper/Spigot 1.19.4+
+  - Java 17 or higher
+
+- **Included:**
+  - HikariCP (database connection pooling)
+  - Adventure API (message formatting)
 
 ## Database Configuration
 
