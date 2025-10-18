@@ -8,6 +8,9 @@ import com.msncakma.msnairdrop.utils.UpdateChecker;
 import com.msncakma.msnairdrop.utils.DebugManager;
 import com.msncakma.msnairdrop.rewards.RewardManager;
 import com.msncakma.msnairdrop.utils.MessageManager;
+import com.msncakma.msnairdrop.commands.*;
+import org.bukkit.command.PluginCommand;
+import org.bukkit.plugin.java.JavaPlugin;
 import com.msncakma.msnairdrop.scheduler.TaskScheduler;
 import com.msncakma.msnairdrop.commands.*;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -56,9 +59,6 @@ public class MsnAirDrop extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        if (messageManager != null) {
-            messageManager.close();
-        }
         getLogger().info("MsnAirDrop has been disabled!");
     }
 
@@ -67,16 +67,29 @@ public class MsnAirDrop extends JavaPlugin {
     }
 
     private void registerCommands() {
-        getCommand("msnairdrop").setExecutor(new VersionCommand(this));
+        // Create the main command handler that will handle all msnairdrop subcommands
+        MainCommandExecutor mainExecutor = new MainCommandExecutor();
         
-        PositionCommand positionCommand = new PositionCommand(this, areaManager);
-        getCommand("msnairdrop:pos1").setExecutor(positionCommand);
-        getCommand("msnairdrop:pos2").setExecutor(positionCommand);
+        // Register all subcommand handlers
+        mainExecutor.registerSubcommand("version", new VersionCommand(this));
+        mainExecutor.registerSubcommand("pos1", new PositionCommand(this, areaManager));
+        mainExecutor.registerSubcommand("pos2", new PositionCommand(this, areaManager));
+        mainExecutor.registerSubcommand("event", new EventCommand(this, eventManager, areaManager));
+        mainExecutor.registerSubcommand("reload", new ReloadCommand(this));
+        mainExecutor.registerSubcommand("debug", new DebugCommand(this));
+        mainExecutor.registerSubcommand("reward", new RewardCommand(this));
         
-        getCommand("msnairdrop event").setExecutor(new EventCommand(this, eventManager, areaManager));
-        getCommand("msnairdrop reload").setExecutor(new ReloadCommand(this));
-        getCommand("msnairdrop debug").setExecutor(new DebugCommand(this));
-        getCommand("msnairdrop reward").setExecutor(new RewardCommand(this));
+        // Set the main command executor
+        PluginCommand mainCommand = getCommand("msnairdrop");
+        if (mainCommand != null) {
+            mainCommand.setExecutor(mainExecutor);
+        }
+        
+        // Register the stats command separately since it's not a subcommand
+        PluginCommand statsCommand = getCommand("airdropstats");
+        if (statsCommand != null) {
+            statsCommand.setExecutor(new StatsCommand(this));
+        }
     }
 
     public void checkForUpdates() {

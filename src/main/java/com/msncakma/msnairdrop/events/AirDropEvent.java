@@ -8,9 +8,6 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.atomic.AtomicReference;
-
 public class AirDropEvent {
     private final MsnAirDrop plugin;
     private final Location pos1;
@@ -19,8 +16,6 @@ public class AirDropEvent {
     private boolean isActive;
     private boolean isAccessible;
     private boolean isTestMode;
-    private AtomicReference<ScheduledFuture<?>> countdownTask;
-    private AtomicReference<ScheduledFuture<?>> accessTask;
     private Material dropBlock;
 
     public AirDropEvent(MsnAirDrop plugin, Location pos1, Location pos2, boolean isTestMode) {
@@ -51,22 +46,19 @@ public class AirDropEvent {
 
         // Start countdown
         int announceDelay = plugin.getConfig().getInt("event.announce-delay", 300);
-        countdownTask = new BukkitRunnable() {
-            @Override
-            public void run() {
-                spawnDrop();
-            }
-        }.runTaskLater(plugin, announceDelay * 20L);
+        plugin.getTaskScheduler().runTaskLater(() -> spawnDrop(), announceDelay * 20L);
     }
 
     private void spawnDrop() {
-        Block block = dropLocation.getBlock();
-        block.setType(dropBlock);
+        plugin.getTaskScheduler().runRegionTask(dropLocation, () -> {
+            Block block = dropLocation.getBlock();
+            block.setType(dropBlock);
 
-        if (dropBlock == Material.CHEST) {
-            Chest chest = (Chest) block.getState();
-            plugin.getDropManager().fillChest(chest.getInventory());
-        }
+            if (dropBlock == Material.CHEST) {
+                Chest chest = (Chest) block.getState();
+                plugin.getDropManager().fillChest(chest.getInventory());
+            }
+        });
 
         // Announce drop location
         String locationMsg = plugin.getLanguageManager().getMessage("event.started", 
@@ -75,12 +67,7 @@ public class AirDropEvent {
 
         // Start access countdown
         int accessDelay = plugin.getConfig().getInt("event.access-delay", 1800);
-        accessTask = new BukkitRunnable() {
-            @Override
-            public void run() {
-                makeAccessible();
-            }
-        }.runTaskLater(plugin, accessDelay * 20L);
+        plugin.getTaskScheduler().runTaskLater(() -> makeAccessible(), accessDelay * 20L);
     }
 
     private void makeAccessible() {
@@ -90,15 +77,9 @@ public class AirDropEvent {
     }
 
     public void cancel() {
-        if (countdownTask != null) {
-            countdownTask.cancel();
-        }
-        if (accessTask != null) {
-            accessTask.cancel();
-        }
         if (dropLocation != null && dropLocation.getBlock().getType() == dropBlock) {
-                            plugin.getTaskScheduler().runRegionTask(dropLocation, () -> 
-                    dropLocation.getBlock().setType(Material.AIR));
+            plugin.getTaskScheduler().runRegionTask(dropLocation, () -> 
+                dropLocation.getBlock().setType(Material.AIR));
         }
         isActive = false;
         isAccessible = false;

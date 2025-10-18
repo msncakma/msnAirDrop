@@ -1,7 +1,8 @@
 package com.msncakma.msnairdrop.config;
 
 import com.msncakma.msnairdrop.MsnAirDrop;
-import org.bukkit.ChatColor;
+import com.msncakma.msnairdrop.utils.MessageUtil;
+import net.kyori.adventure.text.Component;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -58,17 +59,32 @@ public class LanguageManager {
     }
 
     public String getMessage(String path, String... replacements) {
-        String message = getMessage(path);
+        String rawMessage = langConfig.getString(path);
+        if (rawMessage == null) {
+            return "<red>Missing message: " + path + "</red>";
+        }
         
         if (replacements.length % 2 != 0) {
             throw new IllegalArgumentException("Replacements must be in pairs!");
         }
         
         for (int i = 0; i < replacements.length; i += 2) {
-            message = message.replace("{" + replacements[i] + "}", replacements[i + 1]);
+            rawMessage = rawMessage.replace("{" + replacements[i] + "}", replacements[i + 1]);
         }
         
-        return plugin.getMessageManager().parseMessage(message);
+        return rawMessage;
+    }
+
+    public Component getMessageComponent(String path) {
+        return MessageUtil.color(getMessage(path));
+    }
+
+    public Component getMessageComponent(String path, String... replacements) {
+        return MessageUtil.color(getMessage(path, replacements));
+    }
+
+    public String getRawMessage(String path) {
+        return langConfig.getString(path);
     }
 
     public void reload() {

@@ -5,16 +5,12 @@ import com.msncakma.msnairdrop.database.DatabaseQueries;
 import com.msncakma.msnairdrop.database.PlayerStats;
 import com.msncakma.msnairdrop.database.ZoneStats;
 import com.msncakma.msnairdrop.util.StatsFormatter;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +30,9 @@ public class AirDropStatsCommand implements CommandExecutor, TabCompleter {
         this.formatter = new StatsFormatter();
     }
 
-    @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
-                           @NotNull String label, String[] args) {
+        @Override
+    public boolean onCommand(CommandSender sender, Command command,
+                           String label, String[] args) {
         
         if (args.length < 1) {
             if (!(sender instanceof Player)) {
@@ -92,8 +88,8 @@ public class AirDropStatsCommand implements CommandExecutor, TabCompleter {
     }
 
     @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command,
-                                              @NotNull String label, String[] args) {
+    public List<String> onTabComplete(CommandSender sender, Command command,
+                                    String label, String[] args) {
         if (args.length == 1) {
             List<String> completions = new ArrayList<>();
             String partialName = args[0].toLowerCase();

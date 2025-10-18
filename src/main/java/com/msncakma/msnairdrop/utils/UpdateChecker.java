@@ -34,7 +34,8 @@ public class UpdateChecker implements Listener {
             return;
         }
 
-        plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> {
+        // Use a standard Java thread for the update check
+        Thread updateThread = new Thread(() -> {
             try {
                 URL url = new URL(GITHUB_API_URL);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -66,18 +67,22 @@ public class UpdateChecker implements Listener {
                 plugin.getLogger().log(Level.WARNING, "Failed to check for updates: " + e.getMessage());
             }
         });
+        updateThread.setDaemon(true); // Don't prevent JVM shutdown
+        updateThread.start();
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         if (updateAvailable && player.hasPermission("msnairdrop.admin")) {
-            plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
-                String prefix = plugin.getLanguageManager().getMessage("prefix");
-                player.sendMessage(prefix + " " + plugin.getLanguageManager().getMessage("admin.update-available",
-                    "current", currentVersion,
-                    "latest", latestVersion));
-            }, 40L); // Delay notification by 2 seconds after join
+            // Using Folia's region-based scheduling
+            io.papermc.paper.threadedregions.scheduler.ScheduledTask task = 
+                player.getScheduler().runDelayed(plugin, (scheduledTask) -> {
+                    String prefix = plugin.getLanguageManager().getMessage("prefix");
+                    player.sendMessage(prefix + " " + plugin.getLanguageManager().getMessage("admin.update-available",
+                        "current", currentVersion,
+                        "latest", latestVersion));
+                }, null, 40L); // Delay notification by 2 seconds after join
         }
     }
 

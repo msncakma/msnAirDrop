@@ -18,8 +18,7 @@ public class TaskScheduler {
 
     private boolean checkFolia() {
         try {
-            Class.forName("io.papermc.paper.threadedregions.RegionizedServer");
-            return true;
+            return Class.forName("io.papermc.paper.threadedregions.RegionizedServer") != null;
         } catch (ClassNotFoundException e) {
             return false;
         }
@@ -43,7 +42,9 @@ public class TaskScheduler {
 
     public void runTaskLater(Runnable task, long delay) {
         if (isFolia) {
-            plugin.getServer().getGlobalRegionScheduler().executeDelayed(plugin, task, delay);
+            plugin.getServer().getAsyncScheduler().runDelayed(plugin, (scheduledTask) -> {
+                plugin.getServer().getGlobalRegionScheduler().execute(plugin, task);
+            }, delay, java.util.concurrent.TimeUnit.MILLISECONDS);
         } else {
             Bukkit.getScheduler().runTaskLater(plugin, task, delay);
         }
@@ -60,7 +61,7 @@ public class TaskScheduler {
     public CompletableFuture<Void> runRegionTaskAsync(Location location, Runnable task) {
         CompletableFuture<Void> future = new CompletableFuture<>();
         if (isFolia) {
-            plugin.getServer().getRegionScheduler().executeAsync(plugin, location, () -> {
+            plugin.getServer().getAsyncScheduler().runNow(plugin, (scheduledTask) -> {
                 try {
                     task.run();
                     future.complete(null);

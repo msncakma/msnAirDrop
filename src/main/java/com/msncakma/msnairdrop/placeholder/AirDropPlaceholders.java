@@ -20,17 +20,17 @@ public class AirDropPlaceholders extends PlaceholderExpansion {
     }
 
     @Override
-    public @NotNull String getIdentifier() {
+    public String getIdentifier() {
         return "msnairdrop";
     }
 
     @Override
-    public @NotNull String getAuthor() {
+    public String getAuthor() {
         return "msncakma";
     }
 
     @Override
-    public @NotNull String getVersion() {
+    public String getVersion() {
         return plugin.getDescription().getVersion();
     }
 
@@ -40,7 +40,7 @@ public class AirDropPlaceholders extends PlaceholderExpansion {
     }
 
     @Override
-    public String onPlaceholderRequest(Player player, @NotNull String params) {
+    public String onPlaceholderRequest(Player player, String params) {
         if (player == null) {
             return "";
         }

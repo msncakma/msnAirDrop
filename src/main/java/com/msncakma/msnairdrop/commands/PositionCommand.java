@@ -32,14 +32,19 @@ public class PositionCommand implements CommandExecutor {
             return true;
         }
 
-        if (command.getName().equalsIgnoreCase("msnairdrop:pos1")) {
+        if (args.length == 0 || (!args[0].equalsIgnoreCase("pos1") && !args[0].equalsIgnoreCase("pos2"))) {
+            player.sendMessage(prefix + " " + plugin.getLanguageManager().getMessage("admin.pos-usage"));
+            return true;
+        }
+
+        if (args[0].equalsIgnoreCase("pos1")) {
             areaManager.setPos1(player, player.getLocation());
             player.sendMessage(prefix + " " + plugin.getLanguageManager().getMessage("admin.pos1-set", 
                 "pos", LocationUtils.formatLocation(player.getLocation())));
             return true;
         }
 
-        if (command.getName().equalsIgnoreCase("msnairdrop:pos2")) {
+        if (args[0].equalsIgnoreCase("pos2")) {
             areaManager.setPos2(player, player.getLocation());
             player.sendMessage(prefix + " " + plugin.getLanguageManager().getMessage("admin.pos2-set", 
                 "pos", LocationUtils.formatLocation(player.getLocation())));
